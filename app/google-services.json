@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1086204419253",
+    "project_id": "waifupaper-b236b",
+    "storage_bucket": "waifupaper-b236b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086204419253:android:88f2094d80ec7e6c4872fc",
+        "android_client_info": {
+          "package_name": "ve.com.mariomendoza.waifupaper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086204419253-j6ne5sdi3tcf1o01f2shkvg9nvnna38u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJSLBLF_bM_87UOTw5XrPRMCbCLxbEKkg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086204419253-j6ne5sdi3tcf1o01f2shkvg9nvnna38u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
