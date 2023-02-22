@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="IMAGEN HD"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tagsEditText" />
 
@@ -63,28 +63,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@drawable/add_image"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="IMAGEN SD"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/tagsEditText" />
-
-    <ImageView
-        android:id="@+id/imageViewSD"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/add_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewHD"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
