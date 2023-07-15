@@ -9,6 +9,7 @@ import ve.com.mariomendoza.waifupaper.data.DataStorePreferences
 import ve.com.mariomendoza.waifupaper.data.SafeDatabase
 import ve.com.mariomendoza.waifupaper.data.repositorys.PostRepository
 import ve.com.mariomendoza.waifupaper.models.Post
+import ve.com.mariomendoza.waifupaper.models.TagRequest
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -24,7 +25,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         postRepository = PostRepository(postDao)
         dataStorePreferences = DataStorePreferences()
         getColumns()
-        getAllPost()
     }
 
 
@@ -41,6 +41,38 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             mListPost.postValue(allPosts)
+        }
+    }
+
+    fun getAllPostByTag(tags: TagRequest) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val allPosts =  postRepository.getAllPosts(tags)
+            val likedPost =  postRepository.getAllFavoritesEdit()
+
+            for (post in allPosts) {
+                val exist = likedPost.find { actor -> post.id == actor.id }
+                if (exist != null) {
+                    post.isLiked = true
+                }
+            }
+
+            mListPost.postValue(allPosts)
+        }
+    }
+
+    fun search(tags: TagRequest) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val allPostsSearch =  postRepository.search(tags)
+            val likedPost =  postRepository.getAllFavoritesEdit()
+
+            for (post in allPostsSearch) {
+                val exist = likedPost.find { actor -> post.id == actor.id }
+                if (exist != null) {
+                    post.isLiked = true
+                }
+            }
+
+            mListPost.postValue(allPostsSearch)
         }
     }
 

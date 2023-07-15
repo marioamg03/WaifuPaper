@@ -13,6 +13,10 @@
         <action
             android:id="@+id/listToDetailFragment"
             app:destination="@id/detailFragment"/>
+        <argument
+            android:name="log"
+            app:argType="string"
+            android:defaultValue='' />
     </fragment>
 
     <fragment
@@ -39,6 +43,15 @@
         <argument
             android:name="modelArgs"
             app:argType="ve.com.mariomendoza.waifupaper.models.Post"/>
+        <action
+            android:id="@+id/action_detailFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="log"
+                app:argType="string" />
+        </action>
     </fragment>
 
 </navigation>

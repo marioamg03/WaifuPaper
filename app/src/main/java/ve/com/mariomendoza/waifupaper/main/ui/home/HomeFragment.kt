@@ -2,6 +2,8 @@ package ve.com.mariomendoza.waifupaper.main.ui.home
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ import ve.com.mariomendoza.waifupaper.adapters.WaifusHomeAdapter
 import ve.com.mariomendoza.waifupaper.databinding.FragmentHomeBinding
 import ve.com.mariomendoza.waifupaper.dialogs.DialogLoading
 import ve.com.mariomendoza.waifupaper.models.Post
+import ve.com.mariomendoza.waifupaper.models.TagRequest
 
 class HomeFragment : Fragment() {
 
@@ -46,6 +49,33 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val args = HomeFragmentArgs.fromBundle(requireArguments())
+        val log = args.log
+
+        if (log != "") {
+            val tag = TagRequest(log)
+            homeViewModel.getAllPostByTag(tag)
+            binding.txtSearch.setText(log)
+        } else {
+            homeViewModel.getAllPost()
+        }
+
+        binding.txtSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No es necesario implementar este método
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Aquí se ejecuta la búsqueda cada vez que se escribe una letra
+                val tags = TagRequest(s.toString().replace(" ",""))
+                homeViewModel.search(tags)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // No es necesario implementar este método
+            }
+        })
 
         recyclerView = binding.lstRefresh
         recyclerView.setHasFixedSize(true)
@@ -80,10 +110,6 @@ class HomeFragment : Fragment() {
         recyclerView.doOnPreDraw {
             startPostponedEnterTransition()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     private val addToFavoritesListener = WaifusHomeAdapter.OnAddToFavoritesListener { post, position ->

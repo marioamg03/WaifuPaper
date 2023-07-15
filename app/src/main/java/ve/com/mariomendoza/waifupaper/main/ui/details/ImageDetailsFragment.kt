@@ -43,6 +43,7 @@ import ve.com.mariomendoza.waifupaper.R
 import ve.com.mariomendoza.waifupaper.databinding.FragmentImageDetailsBinding
 import ve.com.mariomendoza.waifupaper.dialogs.DialogLoading
 import ve.com.mariomendoza.waifupaper.models.Post
+import ve.com.mariomendoza.waifupaper.models.TagRequest
 import ve.com.mariomendoza.waifupaper.utils.Vars
 import java.io.File
 import java.io.FileOutputStream
@@ -146,12 +147,20 @@ class ImageDetailsFragment : Fragment() {
                                     // Update the title TextView with the proper text color
                                     author.setTextColor(vibrant.rgb)
 
-                                    logs.forEach {
+                                    logs.forEach { log ->
                                         val chip = Chip(context)
-                                        chip.text = it
+                                        chip.text = log
                                         chip.isCloseIconVisible = false
                                         chip.setTextColor(vibrant!!.bodyTextColor)
                                         chip.chipBackgroundColor = ColorStateList.valueOf(vibrant!!.rgb)
+
+                                        chip.setOnClickListener {
+                                            navBar.clearAnimation()
+                                            navBar.animate().translationY(0F).duration = 500
+                                            val direction = ImageDetailsFragmentDirections.actionDetailFragmentToNavigationHome(log)
+                                            findNavController().navigate(direction)
+                                        }
+
                                         categories.addView(chip)
                                     }
                                     buttonShare.setColorFilter(vibrant.rgb, android.graphics.PorterDuff.Mode.SRC_IN)
@@ -169,12 +178,20 @@ class ImageDetailsFragment : Fragment() {
                                     // Update the title TextView with the proper text color
                                     author.setTextColor(vibrant.rgb)
 
-                                    logs.forEach {
+                                    logs.forEach { log ->
                                         val chip = Chip(context)
-                                        chip.text = it
+                                        chip.text = log
                                         chip.isCloseIconVisible = false
                                         chip.setTextColor(vibrant!!.bodyTextColor)
                                         chip.chipBackgroundColor = ColorStateList.valueOf(vibrant!!.rgb)
+
+                                        chip.setOnClickListener {
+                                            navBar.clearAnimation()
+                                            navBar.animate().translationY(0F).duration = 500
+                                            val direction = ImageDetailsFragmentDirections.actionDetailFragmentToNavigationHome(log)
+                                            findNavController().navigate(direction)
+                                        }
+
                                         categories.addView(chip)
                                     }
                                     buttonShare.setColorFilter(vibrant.rgb, android.graphics.PorterDuff.Mode.SRC_IN)
@@ -218,7 +235,6 @@ class ImageDetailsFragment : Fragment() {
                 setWallpaper()
             }
         }
-
         buttonShare.setOnClickListener {
 
             Vars.ADS_CLICK +=1

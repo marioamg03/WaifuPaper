@@ -2,6 +2,7 @@ package ve.com.mariomendoza.waifupaper.data.repositorys
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -14,6 +15,7 @@ import ve.com.mariomendoza.waifupaper.BuildConfig
 import ve.com.mariomendoza.waifupaper.data.dao.PostDao
 import ve.com.mariomendoza.waifupaper.data.remote.ApiService
 import ve.com.mariomendoza.waifupaper.models.Post
+import ve.com.mariomendoza.waifupaper.models.TagRequest
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
@@ -65,10 +67,49 @@ class PostRepository(private val postDao: PostDao) {
         }
     }
 
+    private var searchJob: Job? = null
+
     suspend fun getAllPosts():List<Post> {
+        searchJob?.cancel() // Cancelar la llamada anterior si existe
+
         return withContext(Dispatchers.IO) {
             try {
                 val call: Response<List<Post>> = getRetrofit().create(ApiService::class.java).getPosts()
+                call.body() ?: emptyList()
+            } catch (throwable: Throwable) {
+                when (throwable) {
+                    is IOException -> emptyList()
+                    is HttpException -> emptyList()
+                    else -> emptyList()
+                }
+            }
+        }
+    }
+
+    suspend fun getAllPosts(tags: TagRequest):List<Post> {
+        searchJob?.cancel() // Cancelar la llamada anterior si existe
+
+        return withContext(Dispatchers.IO) {
+            try {
+                val call: Response<List<Post>> = getRetrofit().create(ApiService::class.java).getPostsByTag(tags)
+                call.body() ?: emptyList()
+            } catch (throwable: Throwable) {
+                when (throwable) {
+                    is IOException -> emptyList()
+                    is HttpException -> emptyList()
+                    else -> emptyList()
+                }
+            }
+        }
+    }
+
+
+    suspend fun search(tag: TagRequest): List<Post> {
+        searchJob?.cancel() // Cancelar la llamada anterior si existe
+
+        return withContext(Dispatchers.IO) {
+            try {
+                val call: Response<List<Post>> = getRetrofit().create(ApiService::class.java).search(tag)
                 call.body() ?: emptyList()
             } catch (throwable: Throwable) {
                 when (throwable) {
