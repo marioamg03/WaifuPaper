@@ -4,5 +4,8 @@
     <string name="title_home">Waifus</string>
     <string name="title_favorites">Favoritas</string>
     <string name="title_notifications">Ajustes</string>
+    <string name="title_upload">Subir</string>
     <string name="copyright_info">Todos los fondos de pantalla que están disponibles en la aplicación son gratis y su crédito va a sus respectivos dueños Estos fondos de pantalla tienen licencia bajo el Licencia Creative Commons Zero (CCO). Por favor contáctenos si encuentra algún fondo de pantalla que viole cualquier regla y eliminaremos el fondo de pantalla.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

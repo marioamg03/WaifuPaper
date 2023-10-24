@@ -33,6 +33,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import ve.com.mariomendoza.waifupaper.dialogs.DialogAlert
 import ve.com.mariomendoza.waifupaper.dialogs.DialogLoading
 import ve.com.mariomendoza.waifupaper.main.MainActivity
+import ve.com.mariomendoza.waifupaper.main.ui.upload.UploadViewModel
 import ve.com.mariomendoza.waifupaper.utils.FileUtil
 import ve.com.mariomendoza.waifupaper.utils.RealPathUtil
 import java.io.File
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     private var filePathHD: Uri? = null
     private var filePathSD: Uri? = null
 
-    private val mainViewModel: MainViewModel by viewModels()
+    private val uploadViewModel: UploadViewModel by viewModels()
 
     private var progressDialog: DialogLoading? = null
 
@@ -113,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             writeNewPostV2()
         }
 
-        mainViewModel.loading.observe(this) {
+        uploadViewModel.loading.observe(this) {
 
             if (it != null) {
                 if (it) {
@@ -124,17 +125,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        mainViewModel.clean.observe(this) {
+        uploadViewModel.clean.observe(this) {
             if (it) {
                 cleanFields()
-                mainViewModel.clean.postValue(false)
+                uploadViewModel.clean.postValue(false)
             }
         }
 
-        mainViewModel.alert.observe(this) {
+        uploadViewModel.alert.observe(this) {
             if (it != null) {
                 showDialogAlert(this, it)
-                mainViewModel.alert.postValue(null)
+                uploadViewModel.alert.postValue(null)
             }
         }
 
@@ -168,7 +169,7 @@ class MainActivity : AppCompatActivity() {
         val author: RequestBody = authorEditText.text.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val tags: RequestBody = Gson().toJson(cleanListTags).toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
-        mainViewModel.sendData(author, tags, multipartImage, multipartImage2)
+        uploadViewModel.sendData(author, tags, multipartImage, multipartImage2)
 
     }
 

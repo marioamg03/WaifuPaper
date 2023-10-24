@@ -20,6 +20,13 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_upload"
+        android:name="ve.com.mariomendoza.waifupaper.main.ui.upload.UploadFragment"
+        android:label="@string/title_upload"
+        tools:layout="@layout/fragment_upload">
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="ve.com.mariomendoza.waifupaper.main.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
